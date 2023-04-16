@@ -14,20 +14,20 @@
         <h2>Upgrades</h2>
         <div class="walls">
           <div>
-            <span class="bold">Walls</span> Bigger walls, so escape rate
-            decreases.!
+            <span class="bold">Walls</span> LVL <span class="wallLVL">LVL 1</span> Bigger walls, so escape rate
+            decreases by 10%! <button onclick="upgrade('wall')">UPGRADE ($ <span class="wallPrice">50000</span>)</button>
           </div>
         </div>
         <div class="luxury">
           <div>
-            <span class="bold">Luxury</span> Luxurious items, prisoners will like
-            you so escape rate decreases, but increases money usage.!
+            <span class="bold">Luxury</span> LVL <span class="luxuryLVL">LVL 1</span> Luxurious items, prisoners will like
+            you so riot rate decreases(2%), happiness increases(5%), but increases money usage(+100/lvl)! <button onclick="upgrade('luxury')">UPGRADE ($ <span class="luxuryPrice">2000</span>)</button>
           </div>
         </div>
         <div class="guardUp">
           <div>
-            <span class="bold">Guards</span> More guards! More guards means less
-            escape rate but more money usage.
+            <span class="bold">Guards</span> LVL <span class="guardLVL">LVL 1</span> More guards! More guards means less
+            escape rate(-2%) but more money usage($50/day/guard). (Adds one guard per level. Additional expense per day will be present!) <button onclick="upgrade('guard')">UPGRADE ($ <span class="guardPrice">1000</span>)</button>
           </div>
         </div>
       </div>
@@ -35,18 +35,18 @@
         <h2>Statistics</h2>
         <div class="rows">
           <div class="row">
-            <span class="bold">Escape Rate</span><div class="escapeRate"></div>
-            <span class="bold">Riot Rate</span><div class="riotRate"></div>
-            <span class="bold">Money Income</span><div class="moneyUsage"></div>
+            <span class="bold">Escape Rate: </span><span class="escapeRate"></span><br>
+            <span class="bold">Riot Rate: </span><span class="riotRate"></span><br>
+            <span class="bold">Money Income: $ </span><span class="moneyUsage"></span><br>
           </div>
           <div class="row">
-            <span class="bold">Escapes</span><span class="escapes"></span><br>
-            <span class="bold">Riots</span><span class="riots"></span><br>
-            <span class="bold">Happiness</span><span class="happiness"></span><br>
-            <span class="bold">Guards</span><span class="guards"></span><br>
-            <span class="bold">Prisoners</span><span class="prisoners"></span><br>
-            <span class="bold">$<div class="money"></div><br>
-            <span class="bold">Day</span><span class="day"></span><br>
+            <span class="bold">Escapes: </span><span class="escapes"></span><br>
+            <span class="bold">Riots: </span><span class="riots"></span><br>
+            <span class="bold">Happiness: </span><span class="happiness"></span><br>
+            <span class="bold">Guards: </span><span class="guards"></span><br>
+            <span class="bold">Prisoners: </span><span class="prisoners"></span><br>
+            <span class="bold">$ <span class="money"></span><br>
+            <span class="bold">Day: </span><span class="day"></span><br>
           </div>
         </div>
       </div>
