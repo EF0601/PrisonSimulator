@@ -15,23 +15,55 @@ h1{
      justify-content: space-evenly;
      padding: 20px;
      background-color: grey;
-     height: 500px;
+     
 }
 .upgrades{
      background-color: white;
      padding: 20px;
-     width: 50%;
+     width: 33.33%;
+     height: 500px;
 }
 .stats{
-     width: 50%;
+     width: 33.33%;
      padding: 20px;
      background-color: black;
      color: white;
+     height: 500px;
+}
+.control{
+     width: 33.33%;
+     padding: 20px;
+     background-color: white;
+     text-align: center;
+     height: 500px;
 }
 body{
      background-color: black;
 }
 .bold{
      font-weight: bolder;
-     
+}
+.rows{
+     display: flex;
+     justify-content: space-evenly;
+}
+button{
+     background-color: red;
+     color: white;
+     border-radius: 5px;
+     margin: 10px;
+     padding: 20px;
+     width: 100%;
+}
+/*Responsive*/
+@media only screen and (max-width: 768px){
+     .main{
+          text-align: center;
+          display: block;
+     }
+     .upgrades,
+     .control,
+     .stats{
+          width: 100%;
+     }
 }
