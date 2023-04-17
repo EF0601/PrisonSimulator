@@ -1,13 +1,13 @@
 let prison = {
-     escapeRate: 0.2,
-     riotRate: 0.1,
+     escapeRate: 20,
+     riotRate: 10,
      day:1,
      escapes:0,
      riots:0,
      guards:5,
      prisoners:5,
      money:100000,
-     happiness:0.2,
+     happiness:20,
      income: -100,
 }
 
@@ -45,12 +45,12 @@ let upLevels = {
 }
 
 function updateVals(){
-     locations.escapeRateDis.textContent = prison.escapeRate * 100 + "%";
-     locations.riotRateDis.textContent = prison.riotRate * 100 + "%";
+     locations.escapeRateDis.textContent = prison.escapeRate+"%";
+     locations.riotRateDis.textContent = prison.riotRate+"%";
      locations.moneyUseDis.textContent = prison.income;
      locations.escapeDis.textContent = prison.escapes;
      locations.riotDis.textContent = prison.riots;
-     locations.happyDis.textContent = prison.happiness;
+     locations.happyDis.textContent = prison.happiness+"%";
      locations.guardDis.textContent = prison.guards;
      locations.prisonerDis.textContent = prison.prisoners;
      locations.moneyDis.textContent = prison.money;
@@ -67,38 +67,48 @@ function updateVals(){
 function day(){
      prison.day++;
      prison.money = Number(prison.money + prison.income);
+     if(prison.money <= 0){
+          alert("GGs! Game over.")
+          prison.money = 0;
+     }
      updateVals()
+     
 }
 
 function upgrade(item){
      switch(item){
           case 'wall':
                if(upLevels.wallLvl <= 20 && prison.money >= upPrice.wallPrice){
-                    prison.escapeRate = Math.round(prison.escapeRate * 0.9);
+                    prison.escapeRate = Math.round(prison.escapeRate*0.8);
                     prison.money = Math.round(prison.money - upPrice.wallPrice);
                     upPrice.wallPrice = Math.round(upPrice.wallPrice * 1.1);
+                    prison.income = prison.income - 10;
                     upLevels.wallLvl++;
-                    console.log("purchased")
                }
-          
-               case 'luxury':
-               if(upLevels.wallLvl <= 20 && prison.money >= upPrice.wallPrice){
-                    prison.escapeRate = prison.escapeRate * 0.9;
-                    prison.money = prison.money - upPrice.wallPrice;
-                    upPrice.wallPrice = upPrice.wallPrice * 1.1;
+          break
+          case 'luxury':
+               if(upLevels.luxuryLvl <= 10 && prison.money >= upPrice.luxuryPrice){
+                    prison.happiness = Math.round(prison.happiness * 1.05);
+                    console.log(prison.riotRate*0.9)
+                    prison.riotRate = Math.round(prison.riotRate * 0.9)
+                    prison.money = Math.round(prison.money - upPrice.luxuryPrice);
+                    upPrice.luxuryPrice = Math.round(upPrice.luxuryPrice * 1.05);
+                    prison.income = prison.income - 100;
+                    upLevels.luxuryLvl++;
                }
-          
-               case 'guard':
+          break
+          case 'guard':
                if(prison.money >= upPrice.guardPrice){
                     prison.escapeRate = prison.escapeRate * 0.9;
-                    prison.money = prison.money - upPrice.wallPrice;
-                    upPrice.wallPrice = upPrice.wallPrice * 1.1;
+                    prison.money = Math.round(prison.money - upPrice.wallPrice);
+                    upPrice.wallPrice = Math.round(upPrice.wallPrice * 1.1);
                }
-          
+          break
           default:
                console.warn("Item, " + item + " is not valid. Contact help on Github.")
      }
-     setTimeout(updateVals,1000)
+     // setTimeout(updateVals,1000)
+     updateVals()
 }
 
 updateVals()
