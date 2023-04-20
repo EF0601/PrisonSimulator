@@ -6,7 +6,7 @@ let prison = {
      riots:0,
      guards:5,
      prisoners:5,
-     money:100000,
+     money:5000,
      happiness:20,
      income: -100,
      prisonerLoad: 0,
@@ -63,6 +63,9 @@ function updateVals(){
      upLevels.wallLvlDis.textContent = upLevels.wallLvl;
      upLevels.luxuryLvlDis.textContent = upLevels.luxuryLvl;
      upLevels.guardLvlDis.textContent = upLevels.guardLvl;
+
+     document.querySelector('.load').textContent = prison.prisonerLoad;
+     document.querySelector('.shakedownCost').textContent = prison.prisoners * 3000;
 }
 
 function day(){
@@ -105,6 +108,7 @@ function upgrade(item){
                     prison.money = rounder(prison.money - upPrice.guardPrice, 1);
                     upPrice.guardPrice = rounder(upPrice.guardPrice * 1.05, 1000);
                     upLevels.guardLvl++;
+                    prison.income = prison.income - 50;
                     prison.guards++;
                }
           break
@@ -128,6 +132,15 @@ function addPrisoner(amount){
                prison.escapeRate = rounder(prison.escapeRate + 1.02, 1000);
                prison.riotRate = rounder(prison.riotRate*1.01, 1000)
           }
+     }
+     updateVals()
+}
+
+function shakedown(){
+     if((prison.prisoners * 3000) <= prison.money){
+          prison.escapeRate = rounder(prison.escapeRate * 0.75, 1000);
+          prison.riotRate = rounder(prison.riotRate * 0.75, 1000);
+          prison.money = prison.money - prison.prisoners * 300;
      }
      updateVals()
 }
