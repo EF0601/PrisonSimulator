@@ -10,6 +10,7 @@ let prison = {
      happiness:20,
      income: -100,
      prisonerLoad: 0,
+     taxProb: 7,
 }
 
 let locations = {
@@ -23,6 +24,8 @@ let locations = {
      prisonerDis: document.querySelector('.prisoners'),
      moneyDis: document.querySelector('.money'),
      dayDis: document.querySelector('.day'),
+     alerts: document.querySelector('.alerts'),
+     alert: document.querySelector('.alert'),
 }
 
 let upPrice = {
@@ -43,13 +46,6 @@ let upLevels = {
      wallLvlDis: document.querySelector('.wallLVL'),
      luxuryLvlDis: document.querySelector('.luxuryLVL'),
      guardLvlDis: document.querySelector('.guardLVL'),
-}
-
-const model2 = document.getElementById("myModal2");
-const span2 = document.getElementsByClassName("close2")[0];
-
-span2.onclick = function() {
-  model2.style.display = "none";
 }
 
 function updateVals(){
@@ -83,11 +79,34 @@ function day(){
      prison.money = Number(prison.money + prison.income);
      prison.prisoners = prison.prisoners + prison.prisonerLoad;
      prison.prisonerLoad = 0;
-     if(prison.money <= 0){
-          model2.style.display = "block";
+     roll()
+     tax()
+     if(prison.money < 0){
+          locations.alert.textContent = `Uh oh, you went bankrupt! You have ${prison.day} days lived.`;
           prison.money = 0;
+          (document.querySelector('.days')).style.display = "none";
+          (document.querySelector('.days2')).style.display = "none";
+          (document.querySelector('.days3')).style.display = "none";
+     }
+     if(prison.income >= 5000){
+          prison.taxProb = 9;
      }
      updateVals()
+     
+}
+
+function tax(){
+     if((Math.floor(Math.random() * 10) + 1) < prison.taxProb){
+          if(prison.money >= 10000){
+               prison.money * 0.5;
+               locations.alerts.textContent = "TAXED! The government taxed you 50% of your money. Visit the upgrading section for the accountant upgrade to reduce your taxes."
+          }
+          else{
+               prison.money * 0.75;
+               locations.alerts.textContent = "TAXED! The government taxed you 25% of your money. Visit the upgrading section for the accountant upgrade to reduce your tax visits."
+          }
+          
+     }
      
 }
 
@@ -136,7 +155,7 @@ function addPrisoner(amount){
      prison.prisonerLoad = prison.prisonerLoad + amount;
      for(x=1; x<=prison.prisonerLoad; x++){
           prison.money = prison.money + 10000;
-          prison.income = prison.income + 1000;
+          prison.income = prison.income + 100;
           if(prison.prisoners + prison.prisonerLoad > prison.guards){
                prison.escapeRate = rounder(prison.escapeRate + 1.02, 1000);
                prison.riotRate = rounder(prison.riotRate*1.01, 1000)
@@ -155,3 +174,35 @@ function shakedown(){
 }
 
 updateVals()
+let message = "";
+function roll(){
+     
+     if((Math.floor(Math.random() * 100) + 1) <= prison.escapeRate){
+          if(prison.escapeRate >= 75){
+               prison.escapes = prison.escapes + 5;
+               prison.money = prison.money - 37500;
+               prison.prisoners = prison.prisoners - 5;
+               message = message + "There's five escapes today! ";
+          }
+          else{
+               prison.escapes++;
+               prison.money = prison.money - 7500;
+               prison.prisoners--;
+               message = message + "There's one escape today! ";
+          }
+     }
+     if((Math.floor(Math.random() * 100) + 1) <= prison.riotRate){
+          if(prison.riotRate >= 50){
+               prison.riots = prison.riots + 5;
+               prison.money = prison.money - 50000;
+               message = message + "There's five riots today! ";
+          }
+          else{
+               prison.riots++;
+               prison.money = prison.money - 10000;
+               message = message + "There's one riot today!";
+          }
+     }
+     locations.alerts.textContent = message;
+     message = "";
+}
