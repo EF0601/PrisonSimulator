@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PRISON SIM- GAME</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="modal.css">
   </head>
   <body>
     <div class="game">
@@ -52,16 +53,38 @@
         </div>
       </div>
       <div class="control">
-        <button>Help (<i>In progress</i>)</button><br>
+        <button id="myBtn">Help</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Welcome to Prison Simulator. In this game, your primary goal is to make money while keeping your prisoners secure by purchasing the upgrades. The game is capable of mobile use, although we personally think it's more beautiful on desktop. Your statistics are in the middle black bar, upgrades on the left, and the controls on the right.<br><br>We are currently developing Beta 0.1.0</p>
+  </div>
+
+</div>
+<div id="myModal2" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close2">&times;</span>
+    <p>Uh oh. You went bankrupt.</p>
+  </div>
+
+</div>
         <button onclick="day()">Next Day</button>
         <button onclick="shakedown()">Shakedown</button>
         <button onclick="addPrisoner(1)">Get +1 prisoner the next day (Gain $10000 + $1000 income per load)</button>
         <button onclick="addPrisoner(5)">Get +5 prisoners the next day (Gain $50000 + $5000 income per load)</button>
         <i>Note: if there are more prisoners than guards, there will be 2% increase in escape rate and 1% increase in riot rate for every additional prisoner! You are going to accept <span class="load"></span> prisoners tomorrow!</i> <br><br>
-        <i>A shakedown decreases escape chance by 25%, along with riot chance, but costs $3000 per prisoner! Your current estimated cost is $<span class="shakedownCost"></span></i>
+        <i>A shakedown decreases escape chance by 25%, along with riot chance, but costs $3000 per prisoner! Your current estimated cost is $<span class="shakedownCost"></span></i><br><br>
+        <i>There is a $7500 cost for each prisoner that escapes, as well as a $10000 cost for each riot. Currently there are <span class="escape"></span> escapes and <span class="riot"></span> riots</i>
       </div>
     </div>
     </div>
   </body>
   <script src="main.js"></script>
+  <script src="modal.js"></script>
 </html>

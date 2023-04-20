@@ -45,6 +45,13 @@ let upLevels = {
      guardLvlDis: document.querySelector('.guardLVL'),
 }
 
+const model2 = document.getElementById("myModal2");
+const span2 = document.getElementsByClassName("close2")[0];
+
+span2.onclick = function() {
+  model2.style.display = "none";
+}
+
 function updateVals(){
      locations.escapeRateDis.textContent = prison.escapeRate+"%";
      locations.riotRateDis.textContent = prison.riotRate+"%";
@@ -66,6 +73,9 @@ function updateVals(){
 
      document.querySelector('.load').textContent = prison.prisonerLoad;
      document.querySelector('.shakedownCost').textContent = prison.prisoners * 3000;
+
+     document.querySelector('.escape').textContent = prison.escapes;
+     document.querySelector('.riot').textContent = prison.riots;
 }
 
 function day(){
@@ -74,7 +84,7 @@ function day(){
      prison.prisoners = prison.prisoners + prison.prisonerLoad;
      prison.prisonerLoad = 0;
      if(prison.money <= 0){
-          alert("GGs! Game over.")
+          model2.style.display = "block";
           prison.money = 0;
      }
      updateVals()
@@ -106,7 +116,6 @@ function upgrade(item){
                if(prison.money >= upPrice.guardPrice){
                     prison.escapeRate = rounder(prison.escapeRate * 0.98, 1000);
                     prison.money = rounder(prison.money - upPrice.guardPrice, 1);
-                    upPrice.guardPrice = rounder(upPrice.guardPrice * 1.05, 1000);
                     upLevels.guardLvl++;
                     prison.income = prison.income - 50;
                     prison.guards++;
