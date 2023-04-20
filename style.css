@@ -29,6 +29,18 @@ h1{
      width: 33.33%;
      min-height: 700px;
 }
+.upgrades button{
+     cursor: pointer;
+     background: none;
+     border: none;
+     font-family: Arial, Helvetica, sans-serif;
+}
+.upgrades button:hover{
+     text-decoration: underline;
+}
+.upgrade{
+     margin: 10px;
+}
 .stats{
      width: 33.33%;
      padding: 20px;
