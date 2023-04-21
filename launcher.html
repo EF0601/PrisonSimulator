@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prison Simulator: Launcher</title>
+    <link rel="stylesheet" href="launcher.css" />
+    <link rel="shortcut icon" href="favicon.jpeg" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="main">
+      <h1>Prison Simulator: Launcher</h1>
+      <div class="container">
+        <div class="box">
+          <h2>Changelog</h2>
+          <h4>Current update: 1.1.0</h4>
+          <ul>
+            <li>Basic update</li>
+            <li>
+              Most 1.0.0 systems complete.
+              <a
+                href="https://github.com/EF0601/PrisonSimulator/releases/tag/1.0.0"
+                target="_blank"
+                >More on Github</a
+              >
+            </li>
+            <li>Added favicon!</li>
+            <li>Added launcher</li>
+            <li>Made shakedowns very expensive</li>
+            <li>Fixed prisoner escape bug.</li>
+            <li>Fixed taxing bug</li>
+          </ul>
+        </div>
+        <div class="launch">
+          <img src="./photos/homephoto.png" alt="" class="img1" />
+          <img src="./photos/helpphoto.png" alt="" class="img2" />
+          <img src="./photos/bankruptphoto.png" alt="" class="img3" />
+          <br /><br />
+          <a href="./game.html">LAUNCH GAME</a>
+        </div>
+        <div class="box">
+          <h2>Credits</h2>
+          <h4>Special thanks to these people!</h4>
+          <ul>
+            <li>EF0601: Director, Main Programmer</li>
+            <li>Anonymous: Main debugger, Co Programmer</li>
+            <li>Guest0001: Tester, Artist</li>
+            <li>ThatPianoKid: Music <i>Current works still in progress</i></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    img1();
+    function img1() {
+      document.querySelector(".img1").style.display = "block";
+      document.querySelector(".img2").style.display = "none";
+      document.querySelector(".img3").style.display = "none";
+      setTimeout(img2, 2500);
+    }
+    function img2() {
+      document.querySelector(".img1").style.display = "none";
+      document.querySelector(".img2").style.display = "block";
+      document.querySelector(".img3").style.display = "none";
+      setTimeout(img3, 2500);
+    }
+    function img3() {
+      document.querySelector(".img1").style.display = "none";
+      document.querySelector(".img2").style.display = "none";
+      document.querySelector(".img3").style.display = "block";
+      setTimeout(img1, 2500);
+    }
+  </script>
+</html>

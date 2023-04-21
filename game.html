@@ -7,10 +7,12 @@
     <title>PRISON SIM- GAME</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="modal.css">
+
+    <link rel="shortcut icon" href="favicon.jpeg" type="image/x-icon" />
   </head>
   <body>
     <div class="game">
-      <h1>Prison Simulator: 1.0.0</h1>
+      <h1>Prison Simulator: 1.1.0</h1>
     <div class="main">
       <div class="upgrades">
         <h2>Upgrades</h2>
@@ -61,7 +63,15 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p>Welcome to Prison Simulator. In this game, your primary goal is to make money while keeping your prisoners secure by purchasing the upgrades. The game is capable of mobile use, although we personally think it's more beautiful on desktop. Your statistics are in the middle black bar, upgrades on the left, and the controls on the right.<br><br>We are currently developing Beta 0.1.0</p>
+    <p>Welcome to Prison Simulator. In this game, your primary goal is to make money while keeping your prisoners secure by purchasing the upgrades. The game is capable of mobile use, although we personally think it's more beautiful on desktop. Your statistics are in the middle black bar, upgrades on the left, and the controls on the right.<br><br> Here's what you should do first:
+      <!-- <ol> -->
+        <li>Get as many guards as possible</li>
+        <li>Get as many prisoners as possible without getting over the amount of the guards.</li>
+        <li>Invest in upgrades!</li>
+        <li>Shakedown often!</li>
+      <!-- </ol> -->
+      <br><br>
+      We are currently developing Accountant update: 2.0.0</p>
   </div>
 
 </div>
@@ -70,7 +80,7 @@
         <button onclick="addPrisoner(1)" class="days2">Get +1 prisoner the next day (Gain $10000 + $100 income per load)</button>
         <button onclick="addPrisoner(5)" class="days3">Get +5 prisoners the next day (Gain $50000 + $500 income per load)</button>
         <i>Note: if there are more prisoners than guards, there will be 2% increase in escape rate and 1% increase in riot rate for every additional prisoner! You are going to accept <span class="load"></span> prisoners tomorrow!</i> <br><br>
-        <i>A shakedown decreases escape chance by 25%, along with riot chance, but costs $3000 per prisoner! Your current estimated cost is $<span class="shakedownCost"></span></i><br><br>
+        <i>A shakedown decreases escape chance by 25%, along with riot chance, but costs $6000 per prisoner! Your current estimated cost is $<span class="shakedownCost"></span></i><br><br>
         <i>There is a $7500 cost for each prisoner that escapes, as well as a $10000 cost for each riot. Currently there are <span class="escape"></span> escapes and <span class="riot"></span> riots</i>
         <h3>Alerts</h3>
         <div class="alerts"></div>

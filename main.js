@@ -68,7 +68,7 @@ function updateVals(){
      upLevels.guardLvlDis.textContent = upLevels.guardLvl;
 
      document.querySelector('.load').textContent = prison.prisonerLoad;
-     document.querySelector('.shakedownCost').textContent = prison.prisoners * 3000;
+     document.querySelector('.shakedownCost').textContent = prison.prisoners * 6000;
 
      document.querySelector('.escape').textContent = prison.escapes;
      document.querySelector('.riot').textContent = prison.riots;
@@ -97,16 +97,21 @@ function day(){
 
 function tax(){
      if((Math.floor(Math.random() * 10) + 1) < prison.taxProb){
-          if(prison.money >= 10000){
-               prison.money * 0.5;
+          if(prison.money >= 10000 && prison.money < 1000000){
+               prison.money = prison.money * 0.5;
                locations.alerts.textContent = "TAXED! The government taxed you 50% of your money. Visit the upgrading section for the accountant upgrade to reduce your taxes."
           }
+          if(prison.money >= 1000000){
+               prison.money = prison.money * 0.1;
+               locations.alerts.textContent = "TAXED! The government taxed you 90% of your money. Visit the upgrading section for the accountant upgrade to reduce your taxes."
+          }
           else{
-               prison.money * 0.75;
+               prison.money = prison.money * 0.75;
                locations.alerts.textContent = "TAXED! The government taxed you 25% of your money. Visit the upgrading section for the accountant upgrade to reduce your tax visits."
           }
           
      }
+     updateVals()
      
 }
 
@@ -165,10 +170,10 @@ function addPrisoner(amount){
 }
 
 function shakedown(){
-     if((prison.prisoners * 3000) <= prison.money){
+     if((prison.prisoners * 6000) <= prison.money){
           prison.escapeRate = rounder(prison.escapeRate * 0.75, 1000);
           prison.riotRate = rounder(prison.riotRate * 0.75, 1000);
-          prison.money = prison.money - prison.prisoners * 300;
+          prison.money = prison.money - prison.prisoners * 6000;
      }
      updateVals()
 }
@@ -177,30 +182,38 @@ updateVals()
 let message = "";
 function roll(){
      
-     if((Math.floor(Math.random() * 100) + 1) <= prison.escapeRate){
-          if(prison.escapeRate >= 75){
-               prison.escapes = prison.escapes + 5;
-               prison.money = prison.money - 37500;
-               prison.prisoners = prison.prisoners - 5;
-               message = message + "There's five escapes today! ";
+     if(prison.prisoners > 0){
+          if((Math.floor(Math.random() * 100) + 1) <= prison.escapeRate){
+               if(prison.escapeRate >= 75 && prison.prisoners >= 5 && prison.escapeRate < 100){
+                    prison.escapes = prison.escapes + 5;
+                    prison.money = prison.money - 37500;
+                    prison.prisoners = prison.prisoners - 5;
+                    message = message + "There's five escapes today! ";
+               }
+               if(prison.escapeRate >= 100 && prison.prisoners >= 10){
+                    prison.escapes = prison.escapes + 10;
+                    prison.money = prison.money - 75000;
+                    prison.prisoners = prison.prisoners - 10;
+                    message = message + "There's 10 escapes today! ";
+               }
+               else{
+                    prison.escapes++;
+                    prison.money = prison.money - 7500;
+                    prison.prisoners--;
+                    message = message + "There's one escape today! ";
+               }
           }
-          else{
-               prison.escapes++;
-               prison.money = prison.money - 7500;
-               prison.prisoners--;
-               message = message + "There's one escape today! ";
-          }
-     }
-     if((Math.floor(Math.random() * 100) + 1) <= prison.riotRate){
-          if(prison.riotRate >= 50){
-               prison.riots = prison.riots + 5;
-               prison.money = prison.money - 50000;
-               message = message + "There's five riots today! ";
-          }
-          else{
-               prison.riots++;
-               prison.money = prison.money - 10000;
-               message = message + "There's one riot today!";
+          if((Math.floor(Math.random() * 100) + 1) <= prison.riotRate){
+               if(prison.riotRate >= 50){
+                    prison.riots = prison.riots + 5;
+                    prison.money = prison.money - 50000;
+                    message = message + "There's five riots today! ";
+               }
+               else{
+                    prison.riots++;
+                    prison.money = prison.money - 10000;
+                    message = message + "There's one riot today!";
+               }
           }
      }
      locations.alerts.textContent = message;
