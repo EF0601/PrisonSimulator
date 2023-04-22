@@ -11,6 +11,7 @@ let prison = {
      income: -100,
      prisonerLoad: 0,
      taxProb: 7,
+     capacity: 20,
 }
 
 let locations = {
@@ -32,20 +33,28 @@ let upPrice = {
      wallPrice: 50000,
      luxuryPrice: 2000,
      guardPrice: 1000,
+     taxPrice: 2500,
+     maxPrisonerPrice: 5000,
 
      wallPriceDis: document.querySelector('.wallPrice'),
      luxuryPriceDis: document.querySelector('.luxuryPrice'),
      guardPriceDis: document.querySelector('.guardPrice'),
+     taxPriceDis: document.querySelector('.taxPrice'),
+     maxPrisonerPriceDis: document.querySelector('.maxPrisonerPrice'),
 }
 
 let upLevels = {
      wallLvl: 1,
      luxuryLvl: 1,
      guardLvl: 5,
+     taxLVL: 1,
+     maxPrisonerLVL: 1,
 
      wallLvlDis: document.querySelector('.wallLVL'),
      luxuryLvlDis: document.querySelector('.luxuryLVL'),
      guardLvlDis: document.querySelector('.guardLVL'),
+     taxLvlDis: document.querySelector('.taxLVL'),
+     maxLvlDis: document.querySelector('.maxPrisonerLVL'),
 }
 
 function updateVals(){
@@ -62,10 +71,14 @@ function updateVals(){
 
      upPrice.wallPriceDis.textContent = upPrice.wallPrice;
      upPrice.luxuryPriceDis.textContent = upPrice.luxuryPrice;
+     upPrice.taxPriceDis.textContent = upPrice.taxPrice;
+     upPrice.maxPrisonerPriceDis.textContent = upPrice.maxPrisonerPrice;
 
      upLevels.wallLvlDis.textContent = upLevels.wallLvl;
      upLevels.luxuryLvlDis.textContent = upLevels.luxuryLvl;
      upLevels.guardLvlDis.textContent = upLevels.guardLvl;
+     upLevels.taxLvlDis.textContent = upLevels.taxLVL;
+     upLevels.maxLvlDis.textContent = upLevels.maxPrisonerLVL;
 
      document.querySelector('.load').textContent = prison.prisonerLoad;
      document.querySelector('.shakedownCost').textContent = prison.prisoners * 6000;
@@ -79,6 +92,7 @@ function day(){
      prison.money = Number(prison.money + prison.income);
      prison.prisoners = prison.prisoners + prison.prisonerLoad;
      prison.prisonerLoad = 0;
+     prison.money = rounder(prison.money, 1);
      roll()
      tax()
      if(prison.money < 0){
@@ -92,7 +106,10 @@ function day(){
           prison.taxProb = 9;
      }
      updateVals()
-     
+     if(prison.prisoners == 0){
+          prison.income = prison.income - rounder((prison.capacity * Math.random()), 1)
+          locations.alerts.textContent = "Warning: Your income is draining! This is because you have no prisoners left. Try getting some more prisoners!"
+     }
 }
 
 function tax(){
@@ -141,10 +158,28 @@ function upgrade(item){
                     prison.escapeRate = rounder(prison.escapeRate * 0.98, 1000);
                     prison.money = rounder(prison.money - upPrice.guardPrice, 1);
                     upLevels.guardLvl++;
-                    prison.income = prison.income - 50;
+                    prison.income = prison.income - 150;
                     prison.guards++;
                }
           break
+          case 'tax':
+               if(prison.money >= upPrice.taxPrice && upLevels.taxLVL <= 6){
+                    prison.taxProb--;
+                    prison.money = rounder(prison.money - upPrice.taxPrice, 1);
+                    upPrice.taxPrice = rounder(upPrice.taxPrice * 1.25, 1);
+                    upLevels.taxLVL++;
+                    prison.income = prison.income - 50;
+               }
+               break
+          case 'max':
+               if(prison.money >= upPrice.maxPrisonerPrice && upLevels.maxPrisonerLVL <= 5){
+                    prison.capacity = prison.capacity + 5;
+                    prison.money = rounder(prison.money - upPrice.maxPrisonerPrice, 1);
+                    upPrice.maxPrisonerPrice = rounder(upPrice.maxPrisonerPrice * 1.5, 1);
+                    upLevels.maxPrisonerLVL++;
+                    prison.income = prison.income - 500;
+               }
+               break
           default:
                console.warn("Item, " + item + " is not valid. Contact help on Github.")
      }
@@ -157,7 +192,8 @@ function rounder(number, place){
 }
 
 function addPrisoner(amount){
-     prison.prisonerLoad = prison.prisonerLoad + amount;
+     if((prison.prisonerLoad + amount) <= prison.capacity){
+          prison.prisonerLoad = prison.prisonerLoad + amount;
      for(x=1; x<=prison.prisonerLoad; x++){
           prison.money = prison.money + 10000;
           prison.income = prison.income + 100;
@@ -165,6 +201,7 @@ function addPrisoner(amount){
                prison.escapeRate = rounder(prison.escapeRate + 1.02, 1000);
                prison.riotRate = rounder(prison.riotRate*1.01, 1000)
           }
+     }
      }
      updateVals()
 }
