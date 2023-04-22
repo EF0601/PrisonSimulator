@@ -106,7 +106,10 @@ function day(){
           prison.taxProb = 9;
      }
      updateVals()
-     
+     if(prison.prisoners == 0){
+          prison.income = prison.income - rounder((prison.capacity * Math.random()), 1)
+          locations.alerts.textContent = "Warning: Your income is draining! This is because you have no prisoners left. Try getting some more prisoners!"
+     }
 }
 
 function tax(){
