@@ -77,6 +77,10 @@ body{
 .stats span{
      font-weight: 100;
 }
+video{
+     width: 50%;
+     height: 25%;
+}
 
 /*Responsive*/
 @media only screen and (max-width: 1068px){

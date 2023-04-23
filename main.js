@@ -105,11 +105,15 @@ function day(){
      if(prison.income >= 5000){
           prison.taxProb = 9;
      }
+     if(prison.money <= 1000){
+          locations.alerts.textContent = "Alert! You are running low on funds! You should attempt to raise income!";
+     }
      updateVals()
      if(prison.prisoners == 0){
           prison.income = prison.income - rounder((prison.capacity * Math.random()), 1)
-          locations.alerts.textContent = "Warning: Your income is draining! This is because you have no prisoners left. Try getting some more prisoners!"
+          locations.alerts.textContent = "Warning: Your income is draining! This is because you have no prisoners left. Try getting some more prisoners!";
      }
+     
 }
 
 function tax(){
@@ -196,7 +200,7 @@ function addPrisoner(amount){
           prison.prisonerLoad = prison.prisonerLoad + amount;
      for(x=1; x<=prison.prisonerLoad; x++){
           prison.money = prison.money + 10000;
-          prison.income = prison.income + 100;
+          prison.income = prison.income + 110;
           if(prison.prisoners + prison.prisonerLoad > prison.guards){
                prison.escapeRate = rounder(prison.escapeRate + 1.02, 1000);
                prison.riotRate = rounder(prison.riotRate*1.01, 1000)
