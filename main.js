@@ -224,7 +224,7 @@ let message = "";
 function roll(){
      
      if(prison.prisoners > 0){
-          if((Math.floor(Math.random() * 100) + 1) <= prison.escapeRate){
+          if(((Math.floor(Math.random() * 10000) + 1)/100) <= prison.escapeRate){
                if(prison.escapeRate >= 75 && prison.prisoners >= 5 && prison.escapeRate < 100){
                     prison.escapes = prison.escapes + 5;
                     prison.money = prison.money - 37500;
@@ -244,7 +244,7 @@ function roll(){
                     message = message + "There's one escape today! ";
                }
           }
-          if((Math.floor(Math.random() * 100) + 1) <= prison.riotRate){
+          if(((Math.floor(Math.random() * 10000) + 1)/100) <= prison.riotRate){
                if(prison.riotRate >= 50){
                     prison.riots = prison.riots + 5;
                     prison.money = prison.money - 50000;
