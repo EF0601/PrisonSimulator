@@ -256,6 +256,22 @@ function roll(){
                     message = message + "There's one riot today!";
                }
           }
+          if(Math.floor(Math.random() * 100) <= 50){
+               if(prison.happiness >= 40 && prison.happiness <= 70){
+                    prison.prisoners--;
+                    rounder(prison.escapeRate = prison.escapeRate * 0.98, 10);
+                    rounder(prison.riotRate = prison.riotRate * 0.99, 10);
+                    prison.money = prison.money + 25000;
+                    message = message + "There's a release! $25000 added";
+               }
+               if(prison.happiness >= 70){
+                    prison.prisoners = prison.prisoners - 2;
+                    rounder(prison.escapeRate = prison.escapeRate * 0.96, 10);
+                    rounder(prison.riotRate = prison.riotRate * 0.98, 10);
+                    prison.money = prison.money + 50000;
+                    message = message + "There's a release! $50000 added";
+               }
+          }
      }
      locations.alerts.textContent = message;
      message = "";
