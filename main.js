@@ -12,7 +12,7 @@ let prison = {
      prisonerLoad: 0,
      taxProb: 7,
      capacity: 20,
-}
+};
 
 let locations = {
      escapeRateDis: document.querySelector('.escapeRate'),
@@ -27,7 +27,7 @@ let locations = {
      dayDis: document.querySelector('.day'),
      alerts: document.querySelector('.alerts'),
      alert: document.querySelector('.alert'),
-}
+};
 
 let upPrice = {
      wallPrice: 50000,
@@ -41,7 +41,7 @@ let upPrice = {
      guardPriceDis: document.querySelector('.guardPrice'),
      taxPriceDis: document.querySelector('.taxPrice'),
      maxPrisonerPriceDis: document.querySelector('.maxPrisonerPrice'),
-}
+};
 
 let upLevels = {
      wallLvl: 1,
@@ -55,7 +55,7 @@ let upLevels = {
      guardLvlDis: document.querySelector('.guardLVL'),
      taxLvlDis: document.querySelector('.taxLVL'),
      maxLvlDis: document.querySelector('.maxPrisonerLVL'),
-}
+};
 
 function updateVals(){
      locations.escapeRateDis.textContent = prison.escapeRate+"%";
@@ -93,8 +93,8 @@ function day(){
      prison.prisoners = prison.prisoners + prison.prisonerLoad;
      prison.prisonerLoad = 0;
      prison.money = rounder(prison.money, 1);
-     roll()
-     tax()
+     roll();
+     tax();
      if(prison.money < 0){
           locations.alert.textContent = `Uh oh, you went bankrupt! You have ${prison.day} days lived.`;
           prison.money = 0;
@@ -108,32 +108,32 @@ function day(){
      if(prison.money <= 1000){
           locations.alerts.textContent = "Alert! You are running low on funds! You should attempt to raise income!";
      }
-     updateVals()
+     updateVals();
      if(prison.prisoners == 0){
-          prison.income = prison.income - rounder((prison.capacity * Math.random()), 1)
+          prison.income = prison.income - rounder((prison.capacity * Math.random()), 1);
           locations.alerts.textContent = "Warning: Your income is draining! This is because you have no prisoners left. Try getting some more prisoners!";
      }
-     
+
 }
 
 function tax(){
      if((Math.floor(Math.random() * 10) + 1) < prison.taxProb){
           if(prison.money >= 10000 && prison.money < 1000000){
                prison.money = prison.money * 0.5;
-               locations.alerts.textContent = "TAXED! The government taxed you 50% of your money. Visit the upgrading section for the accountant upgrade to reduce your taxes."
+               locations.alerts.textContent = "TAXED! The government taxed you 50% of your money. Visit the upgrading section for the accountant upgrade to reduce your taxes.";
           }
           if(prison.money >= 1000000){
                prison.money = prison.money * 0.1;
-               locations.alerts.textContent = "TAXED! The government taxed you 90% of your money. Visit the upgrading section for the accountant upgrade to reduce your taxes."
+               locations.alerts.textContent = "TAXED! The government taxed you 90% of your money. Visit the upgrading section for the accountant upgrade to reduce your taxes.";
           }
           else{
                prison.money = prison.money * 0.75;
-               locations.alerts.textContent = "TAXED! The government taxed you 25% of your money. Visit the upgrading section for the accountant upgrade to reduce your tax visits."
+               locations.alerts.textContent = "TAXED! The government taxed you 25% of your money. Visit the upgrading section for the accountant upgrade to reduce your tax visits.";
           }
-          
+
      }
-     updateVals()
-     
+     updateVals();
+
 }
 
 function upgrade(item){
@@ -146,17 +146,17 @@ function upgrade(item){
                     prison.income = prison.income - 10;
                     upLevels.wallLvl++;
                }
-          break
+          break;
           case 'luxury':
                if(upLevels.luxuryLvl <= 10 && prison.money >= upPrice.luxuryPrice){
                     prison.happiness = rounder(prison.happiness * 1.05, 1000);
-                    prison.riotRate = rounder(prison.riotRate * 0.98, 100)
+                    prison.riotRate = rounder(prison.riotRate * 0.98, 100);
                     prison.money = rounder(prison.money - upPrice.luxuryPrice, 1);
                     upPrice.luxuryPrice = rounder(upPrice.luxuryPrice * 1.05, 1);
                     prison.income = prison.income - 100;
                     upLevels.luxuryLvl++;
                }
-          break
+          break;
           case 'guard':
                if(prison.money >= upPrice.guardPrice){
                     prison.escapeRate = rounder(prison.escapeRate * 0.98, 1000);
@@ -165,7 +165,7 @@ function upgrade(item){
                     prison.income = prison.income - 150;
                     prison.guards++;
                }
-          break
+          break;
           case 'tax':
                if(prison.money >= upPrice.taxPrice && upLevels.taxLVL <= 6){
                     prison.taxProb--;
@@ -174,7 +174,7 @@ function upgrade(item){
                     upLevels.taxLVL++;
                     prison.income = prison.income - 50;
                }
-               break
+               break;
           case 'max':
                if(prison.money >= upPrice.maxPrisonerPrice && upLevels.maxPrisonerLVL <= 5){
                     prison.capacity = prison.capacity + 5;
@@ -183,12 +183,12 @@ function upgrade(item){
                     upLevels.maxPrisonerLVL++;
                     prison.income = prison.income - 500;
                }
-               break
+               break;
           default:
-               console.warn("Item, " + item + " is not valid. Contact help on Github.")
+               console.warn("Item, " + item + " is not valid. Contact help on Github.");
      }
      // setTimeout(updateVals,1000)
-     updateVals()
+     updateVals();
 }
 
 function rounder(number, place){
@@ -203,11 +203,11 @@ function addPrisoner(amount){
           prison.income = prison.income + 110;
           if(prison.prisoners + prison.prisonerLoad > prison.guards){
                prison.escapeRate = rounder(prison.escapeRate + 1.02, 1000);
-               prison.riotRate = rounder(prison.riotRate*1.01, 1000)
+               prison.riotRate = rounder(prison.riotRate*1.01, 1000);
           }
      }
      }
-     updateVals()
+     updateVals();
 }
 
 function shakedown(){
@@ -216,13 +216,13 @@ function shakedown(){
           prison.riotRate = rounder(prison.riotRate * 0.75, 1000);
           prison.money = prison.money - prison.prisoners * 6000;
      }
-     updateVals()
+     updateVals();
 }
 
-updateVals()
+updateVals();
 let message = "";
 function roll(){
-     
+
      if(prison.prisoners > 0){
           if(((Math.floor(Math.random() * 10000) + 1)/100) <= prison.escapeRate){
                if(prison.escapeRate >= 75 && prison.prisoners >= 5 && prison.escapeRate < 100){
